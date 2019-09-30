@@ -1,0 +1,66 @@
+{
+    "name": "mydriving-user-api",
+    "description": "This is the User API for the MyDriving service",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Azure-Samples/openhack-devops-team.git"
+    },
+    "license": "UNLICENSED",
+    "bugs": "http://github.com/Azure-Samples/openhack-devops-team/issues",
+    "dependencies": {
+        "@hapi/hoek": "^7.1.0",
+        "@hapi/joi": "^15.0.3",
+        "body-parser": "^1.19.0",
+        "enjoi": "^4.0.0",
+        "express": "^4.17.1",
+        "express-prom-bundle": "^5.1.5",
+        "express4-tedious": "^0.3.0",
+        "extend": "^3.0.2",
+        "lodash": "^4.17.15",
+        "morgan": "^1.9.1",
+        "prom-client": "^11.5.3",
+        "swagger-ui-express": "^4.0.6",
+        "swaggerize-express": "^4.0.5",
+        "swaggerize-routes": "^1.0.11",
+        "swagmock": "1.0.0",
+        "tedious": "^6.2.0"
+    },
+    "devDependencies": {
+        "eslint": "^5.16.0",
+        "is-my-json-valid": "^2.20.0",
+        "js-yaml": "^3.13.1",
+        "nyc": "^14.1.1",
+        "supertest": "^4.0.2",
+        "swagger-parser": "^7.0.1",
+        "tap-junit": "^3.1.0",
+        "tape": "^4.10.2"
+    },
+    "nyc": {
+        "check-coverage": true,
+        "per-file": false,
+        "lines": 25,
+        "statements": 8,
+        "functions": 9,
+        "branches": 1,
+        "reporter": [
+            "cobertura",
+            "html"
+        ],
+        "require": [],
+        "cache": true,
+        "all": true,
+        "temp-directory": "./reports-tmp",
+        "report-dir": "./reports"
+    },
+    "scripts": {
+        "test": "tape 'tests/**/*.js' | tap-junit --output reports --name userprofile-report",
+        "cover": "nyc tape -- 'tests/**/*.js' --cov",
+        "lint": "eslint .",
+        "regenerate": "yo swaggerize:test --framework express --apiPath './config/swagger.json'"
+    },
+    "generator-swaggerize": {
+        "version": "4.1.0"
+    },
+    "main": "./server"
+}
