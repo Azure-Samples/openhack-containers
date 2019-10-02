@@ -27,21 +27,21 @@
             //Create an instance of the directions manager.
             directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
 
-            @*var startpoint = @($"{Model.FirstOrDefault().Latitude},{Model.FirstOrDefault().Longitude}");
-            var endpoint = @($"{Model.Last().Latitude},{Model.Last().Longitude}");*@
+            var tp = @($"{Model.FirstOrDefault()}");
+            if(tp !== null) {
+                //Create waypoints to route between.
+                var startWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: '@($"{Model?.FirstOrDefault()?.Latitude},{Model?.FirstOrDefault()?.Longitude}")' });
+                directionsManager.addWaypoint(startWaypoint);
 
-            //Create waypoints to route between.
-            var startWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: '@($"{Model.FirstOrDefault().Latitude},{Model.FirstOrDefault().Longitude}")' });
-            directionsManager.addWaypoint(startWaypoint);
+                var endWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: '@($"{Model?.LastOrDefault()?.Latitude},{Model?.LastOrDefault()?.Longitude}")' });
+                directionsManager.addWaypoint(endWaypoint);
 
-            var endWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: '@($"{Model.Last().Latitude},{Model.Last().Longitude}")' });
-            directionsManager.addWaypoint(endWaypoint);
+                //Add event handler to directions manager.
+                Microsoft.Maps.Events.addHandler(directionsManager, 'directionsUpdated', directionsUpdated);
 
-            //Add event handler to directions manager.
-            Microsoft.Maps.Events.addHandler(directionsManager, 'directionsUpdated', directionsUpdated);
-
-            //Calculate directions.
-            directionsManager.calculateDirections();
+                //Calculate directions.
+                directionsManager.calculateDirections();
+            }
         });
     }
 
@@ -94,6 +94,12 @@
     <div>
         <h2>View Last Trip</h2>
         <button onclick="showDetail()">Toggle Detail</button>
+    </div>
+    <div id="notrippoints">
+        @if (Model.Count() == 0)
+        {
+            <p>No Trip Points to display</p>
+        }
     </div>
     <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
     <div id="myInfoPanel" style="display:none;">
