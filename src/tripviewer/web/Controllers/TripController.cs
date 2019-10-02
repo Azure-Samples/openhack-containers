@@ -47,10 +47,14 @@ namespace TripViewer.Controllers
             //Get trips
             TripStore t = new TripStore(teamendpoint);
             List<Trip> trips = t.GetItemsAsync().Result;
+
+            if (trips.Count == 0){
+                return new List<TripPoint>();
+            } 
             
             //Get Random Trip
             var r = new Random();  
-            Trip randomTrip = trips.ElementAt(r.Next(1, trips.Count()));
+            Trip randomTrip = trips.ElementAt(r.Next(0, trips.Count()));
             
             //Get TripPoints
             TripPointStore tps = new TripPointStore(teamendpoint);
