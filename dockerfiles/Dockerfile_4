@@ -21,7 +21,7 @@ ENV PORT="80" \
     SQL_PASSWORD="changeme" \
     SQL_SERVER="changeme.database.windows.net" \
     SQL_DBNAME="mydrivingDB" \
-    OPENAPI_UI_URI="http://changeme" \
+    OPENAPI_DOCS_URI="http://changeme" \
     DEBUG_LOGGING="false"
 
 # Metadata as defined in OCI image spec annotations - https://github.com/opencontainers/image-spec/blob/master/annotations.md
