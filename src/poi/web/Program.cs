@@ -30,6 +30,8 @@ namespace poi
                 .AddEnvironmentVariables()
                 .Build();
 
+            var secretsPath = Environment.GetEnvironmentVariable("CONFIG_FILES_PATH");
+
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
@@ -48,7 +50,7 @@ namespace poi
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                     config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                     config.AddEnvironmentVariables();
-                    config.AddKeyPerFile(directoryPath: "/secrets", optional: true);
+                    config.AddKeyPerFile(directoryPath: $"{secretsPath}", optional: true);
                     config.AddCommandLine(args);
                 })
                 .UseStartup<Startup>()
