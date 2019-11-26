@@ -76,6 +76,8 @@ docker run -d -p 8080:80 --name user-java -v $HOST_FOLDER:/secrets tripinsights/
 
 ## Testing
 
+> note: in a `powershell` prompt curl is aliased to `Invoke-WebRequest`.  Use `cmd` prompt or run `Remove-Item Alias:curl` in powershell.
+
 Create a new user profile with id of `aa1d876a-3e37-4a7a-8c9b-769ee6217ec2`.
 
 ```bash
