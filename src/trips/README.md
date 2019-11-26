@@ -61,7 +61,13 @@ The value for a configuration variable may be specified via an environment varia
 
 ## Run in Docker
 
-To build the image
+Simple build:
+
+```
+docker build -f Dockerfile -t "tripinsights/trips:1.0" .
+```
+
+To build the image for release"
 
 Bash
 ```bash
