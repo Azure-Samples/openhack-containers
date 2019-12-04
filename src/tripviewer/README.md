@@ -30,7 +30,7 @@ The value for a configuration variable should be specified via an environment va
 
 | Name | Required | Format | Description |
 |----- | -------- | ------ | ----------- |
-| USER_API_ENDPOINT | Yes | "http://endpoint.you.specify(:port)" | The FQDN of the `userprofile` API endpoint. |
+| USERPROFILE_API_ENDPOINT | Yes | "http://endpoint.you.specify(:port)" | The FQDN of the `userprofile` API endpoint. |
 | TRIPS_API_ENDPOINT | Yes | "http://endpoint.you.specify(:port)" | The FQDN of the `trips` API endpoint. |
 | BING_MAPS_KEY | No | \<guid\> | A Bing Maps API key |
 
@@ -57,7 +57,7 @@ docker build --no-cache --build-arg IMAGE_VERSION="1.0" --build-arg IMAGE_CREATE
 To run the image
 
 ```bash
-docker run -d -p 8080:80 --name tripviewer -e "USER_API_ENDPOINT=http://$ENDPOINT" -e "TRIPS_API_ENDPOINT=http://$ENDPOINT" tripinsights/tripviewer:1.0
+docker run -d -p 8080:80 --name tripviewer -e "USERPROFILE_API_ENDPOINT=http://$ENDPOINT" -e "TRIPS_API_ENDPOINT=http://$ENDPOINT" tripinsights/tripviewer:1.0
 ```
 
 ## Testing

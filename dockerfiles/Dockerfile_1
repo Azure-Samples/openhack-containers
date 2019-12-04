@@ -20,7 +20,7 @@ ARG IMAGE_SOURCE_REVISION
 
 
 ENV TRIPS_API_ENDPOINT="http://endpoint" \
-    USER_API_ENDPOINT="http://endpoint"
+    USERPROFILE_API_ENDPOINT="http://endpoint"
 
 # Metadata as defined in OCI image spec annotations - https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL org.opencontainers.image.title="TripInsights - TripViewer Site" \
