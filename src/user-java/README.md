@@ -51,7 +51,13 @@ The value for a configuration variable may be specified via an environment varia
 
 ## Run in Docker
 
-To build the image
+Simple build:
+
+```
+docker build -f Dockerfile -t "tripinsights/user-java:1.0" .
+```
+
+To build the image for release:
 
 Bash
 ```bash
@@ -76,20 +82,22 @@ docker run -d -p 8080:80 --name user-java -v $HOST_FOLDER:/secrets tripinsights/
 
 ## Testing
 
+> note: in a `powershell` prompt curl is aliased to `Invoke-WebRequest`.  Use `cmd` prompt or run `Remove-Item Alias:curl` in powershell.
+
 Create a new user profile with id of `aa1d876a-3e37-4a7a-8c9b-769ee6217ec2`.
 
 ```bash
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "createdAt": "2018-08-07", "deleted": false, "firstName": "Hacker","fuelConsumption": 0,"hardAccelerations": 0,"hardStops": 0, "lastName": "Test","maxSpeed": 0,"profilePictureUri": "https://pbs.twimg.com/profile_images/1003946090146693122/IdMjh-FQ_bigger.jpg", "ranking": 0,"rating": 0, "totalDistance": 0, "totalTime": 0, "totalTrips": 0,  "updatedAt": "2018-08-07", "userId": "hacker2" }' 'http://localhost:8080/api/user-java/aa1d876a-3e37-4a7a-8c9b-769ee6217ec2'
+curl -i -x POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "createdAt": "2018-08-07", "deleted": false, "firstName": "Hacker","fuelConsumption": 0,"hardAccelerations": 0,"hardStops": 0, "lastName": "Test","maxSpeed": 0,"profilePictureUri": "https://pbs.twimg.com/profile_images/1003946090146693122/IdMjh-FQ_bigger.jpg", "ranking": 0,"rating": 0, "totalDistance": 0, "totalTime": 0, "totalTrips": 0,  "updatedAt": "2018-08-07", "userId": "hacker2" }' 'http://localhost:8080/api/user-java/aa1d876a-3e37-4a7a-8c9b-769ee6217ec2'
 ```
 
 Update the `fuelConsumption` and `hardStops` values for an existing user profile with id of `aa1d876a-3e37-4a7a-8c9b-769ee6217ec2`.
 
 ```bash
-curl -X PATCH --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "fuelConsumption":20, "hardStops":74371 }' 'http://localhost:8080/api/user-java/aa1d876a-3e37-4a7a-8c9b-769ee6217ec2'
+curl -i -x PATCH --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "fuelConsumption":20, "hardStops":74371 }' 'http://localhost:8080/api/user-java/aa1d876a-3e37-4a7a-8c9b-769ee6217ec2'
 ```
 
 Get healthcheck status
 
 ```bash
-curl -X GET 'http://localhost:8080/api/user-java/healthcheck'
+curl -i -x GET 'http://localhost:8080/api/user-java/healthcheck'
 ```
