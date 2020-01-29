@@ -83,7 +83,7 @@ To run the image
 
 ```bash
 # Example 1 - Set config values via environment variables
-docker run -d -p 8080:80 --name trips -e "SQL_PASSWORD=$SQL_PASSWORD" -e "SQL_SERVER=$SQL_SERVER" -e "DOCS_URI=http://$EXTERNAL_IP" tripinsights/trips:1.0
+docker run -d -p 8080:80 --name trips -e "SQL_PASSWORD=$SQL_PASSWORD" -e "SQL_SERVER=$SQL_SERVER" -e "OPENAPI_DOCS_URI=http://$EXTERNAL_IP" tripinsights/trips:1.0
 
 # Example 2 - Set configuration via files. Server will expect config values in files like /secrets/SQL_USER.
 # The secrets must be mounted from a host volume (eg. $HOST_FOLDER) into the /secrets container volume.
