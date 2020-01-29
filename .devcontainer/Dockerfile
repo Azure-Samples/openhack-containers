@@ -27,14 +27,14 @@ ARG USER_GID=$USER_UID
 # Configure apt and install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
-    && apt-get -y install git iproute2 procps 
+    && apt-get -y install git iproute2 procps
 
 # Install Docker CE CLI
 RUN apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common lsb-release \
     && curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | (OUT=$(apt-key add - 2>&1) || echo $OUT) \
     && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" \
     && apt-get update \
-    && apt-get install -y docker-ce-cli 
+    && apt-get install -y docker-ce-cli
 
 # Install Docker Compose
 RUN curl -sSL "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
@@ -48,7 +48,7 @@ RUN apt-get install -y apt-transport-https curl gnupg2 lsb-release \
     && apt-get install -y azure-cli
 
 # Install Kubectl
-RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list \ 
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list \
     && curl -sL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - 2>/dev/null \
     && apt-get update \
     && apt-get install -y kubectl
