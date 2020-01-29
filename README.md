@@ -16,6 +16,7 @@ The application used for this event is a heavily modified and recreated version 
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
+| `.devcontainer`   | VS Code [development container](https://code.visualstudio.com/docs/remote/containers) with useful utils (Azure CLI, Kubectl, Helm, etc.)   |
 | `dockerfiles`     | Dockerfiles for source code                |
 | `src`             | Sample source code for POI, Trips, User (Java), UserProfile (Node.JS), and TripViewer                     |
 | `.gitignore`      | Define what to ignore at commit time.      |
