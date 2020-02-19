@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "API for the trips in the Trip Insights app. https://github.com/vyta/openhack-containers",
+    "description": "API for the trips in the Trip Insights app. https://github.com/Azure-Samples/openhack-containers",
     "version": "0.1.0",
     "title": "Trip Insights Trips API"
   },

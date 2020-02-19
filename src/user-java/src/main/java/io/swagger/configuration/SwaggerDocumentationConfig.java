@@ -26,7 +26,7 @@ public class SwaggerDocumentationConfig extends WebMvcConfigurerAdapter {
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
             .title("Trip Insights User Profile (Java) API")
-            .description("API for the user profile in the Trip Insights app. https://github.com/vyta/openhack-containers")
+            .description("API for the user profile in the Trip Insights app. https://github.com/Azure-Samples/openhack-containers")
             .license("")
             .licenseUrl("http://unlicense.org")
             .termsOfServiceUrl("")
