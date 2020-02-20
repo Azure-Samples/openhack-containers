@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips
+spec:
+  selector:
+    matchLabels:
+      run: trips
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: trips
+    spec:
+      containers:
+      - name: trips
+        image: registryzlh9820.azurecr.io/tripinsights/trips
+        ports:
+        - containerPort: 80

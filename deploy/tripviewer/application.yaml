@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripviewer
+spec:
+  selector:
+      matchLabels:
+        app: tripviewer
+  replicas: 1
+  template:
+      metadata:
+        labels:
+            app: tripviewer
+      spec:
+        containers:
+        - name: tripviewer
+          image: registryzlh9820.azurecr.io/tripinsights/tripviewer:1.0
+          env:
+          - name: SQL_PASSWORD
+            value: "xF0ks4Du4"
+          - name: SQL_SERVER
+            value:  "sqlserverzlh9820.database.windows.net"
+          - name: SQL_USER
+            value: "sqladminzLh9820"
+          - name: SQL_DB
+            value: "mydrivingDB"
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Production"  
+          - name: USERPROFILE_API_ENDPOINT
+            value: "10.0.85.53"
+          - name: TRIPS_API_ENDPOINT
+            value: "10.0.42.214"
+          - name: BING_MAPS_KEY
+            value: ""
+          ports:
+          - containerPort: 80

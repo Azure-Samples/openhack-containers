@@ -13,4 +13,4 @@ docker run --rm --name dataload \
 -e "SQLDB=$OH_SQL_DBNAME" \
 openhack/data-load:v1
 
-docker exec sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U $OH_SQL_USER -P $OH_SQL_PASSWORD -Q "select name from sys.databases; select name from sys.tables"
+docker exec sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U $OH_SQL_USER -P $OH_SQL_PASSWORD -Q "select name from sys.databases; use mydrivingdb; select name from sys.tables"

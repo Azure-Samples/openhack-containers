@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  # db:
+  #   container_name: sql1
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - MSSQL_SA_PASSWORD=${OH_SQL_PASSWORD}
+  #   ports:
+  #     - 1433:1433
   poi:
     environment: 
       - WEB_SERVER_BASE_URI=${OH_WEB_SERVER_BASE_URI}
@@ -12,10 +19,38 @@ services:
       - SQL_DBNAME=${OH_SQL_DBNAME}
     ports:
       - 0.0.0.0:8080:80
-  db:
-    container_name: sql1
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=${OH_SQL_PASSWORD}
+  trips:
+    environment: 
+      - WEB_SERVER_BASE_URI=${OH_WEB_SERVER_BASE_URI}
+      - ASPNETCORE_ENVIRONMENT=${OH_ASPNETCORE_ENVIRONMENT}
+      - SQL_USER=${OH_SQL_USER}
+      - SQL_PASSWORD=${OH_SQL_PASSWORD}
+      - SQL_SERVER=${OH_SQL_SERVER}
+      - SQL_PORT=${OH_SQL_PORT}
+      - SQL_DBNAME=${OH_SQL_DBNAME}
+      - DOCS_URI=http://temp
     ports:
-      - 1433:1433
+      - 0.0.0.0:8081:80
+  user-java:
+    environment: 
+      - SQL_USER=${OH_SQL_USER}
+      - SQL_PASSWORD=${OH_SQL_PASSWORD}
+      - SQL_SERVER=${OH_SQL_SERVER}
+      - SQL_PORT=${OH_SQL_PORT}
+      - SQL_DBNAME=${OH_SQL_DBNAME}
+    ports:
+      - 0.0.0.0:8082:80
+  userprofile:
+    environment: 
+      - SQL_USER=${OH_SQL_USER}
+      - SQL_PASSWORD=${OH_SQL_PASSWORD}
+      - SQL_SERVER=${OH_SQL_SERVER}
+      - SQL_PORT=${OH_SQL_PORT}
+      - SQL_DBNAME=${OH_SQL_DBNAME}
+    ports:
+      - 0.0.0.0:8083:80
+  tripviewer:
+    build:
+      context: ../src/tripviewer
+      dockerfile: ../../dockerfiles/Dockerfile_1
+    image: tripinsights/tripviewer:1.0

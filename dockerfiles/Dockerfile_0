@@ -12,9 +12,9 @@ ARG IMAGE_VERSION
 ARG IMAGE_SOURCE_REVISION
 
 ENV PORT=80 \
-    SQL_USER="sqladmin" \
-    SQL_PASSWORD="changeme" \
-    SQL_SERVER="changeme.database.windows.net" \
+    SQL_USER="${OH_SQL_USER}" \
+    SQL_PASSWORD="${OH_SQL_PASSWORD}" \
+    SQL_SERVER="${OH_SQL_SERVER}" \
     SQL_DBNAME="mydrivingDB"
 
 # Metadata as defined in OCI image spec annotations - https://github.com/opencontainers/image-spec/blob/master/annotations.md
