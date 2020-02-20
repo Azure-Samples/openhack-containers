@@ -1,0 +1,38 @@
+export oh_sqlservername=sqlserverzlh9820.database.windows.net
+export oh_sqluid=sqladminzLh9820
+export oh_sqlpwd=xF0ks4Du4
+docker run --network azdevops_default -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$oh_sqlpwd" -e "SQLFQDN=$oh_sqlservername" -e "SQLUSER=$oh_sqluid" -e "SQLPASS=$oh_sqlpwd" -e "SQLDB=mydrivingDB" --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+
+Web-dev User: webdev@OTAPRD181ops.onmicrosoft.com
+Web-dev PW: bR2fg8Cg3
+Api-dev User: apidev@OTAPRD181ops.onmicrosoft.com
+Api-dev PW: wR7nb7Te3
+
+Azure SQL FDQN: sqlserverzlh9820.database.windows.net
+Azure SQL Server User: sqladminzLh9820
+Azure SQL Server Pass: xF0ks4Du4
+Azure SQL Server Database: mydrivingDB
+
+Simulator url:simulatorregistryzlh9820.eastus.azurecontainer.io
+
+docker run -d -p 8080:90 --name poi --name azdevops_default -e "SQLUSER=sqladminzLh9820" 
+
+docker run -d -p 8080:80 --name poi --network azdevops_default -e "SQL_USER=sqladminzLh9820" -e "SQL_PASSWORD=xF0ks4Du4" -e "SQL_SERVER=sqlserverzlh9820.database.windows.net" -e "SQLDBN=mydrivingDB" -e "ASPNETCORE_ENVIRONMENT=local" tripinsights/poi:1.0
+
+------------------------
+Step 1.) Build a local sql server
+    
+docker run --network azdevops_default -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd" -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+
+Step 2. ) Attaching to the container and places you at the command prompt.
+docker exec -it sql1 "bash"
+
+Step 3. ) /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "P@ssw0rd"
+
+Step 4.) create database mydrivingDB
+
+Step 5.) DB load data command
+docker run --name dataload --network azdevops_default -e SQLFQDN=sql1 -e SQLUSER=SA -e SQLPASS=P@ssw0rd -e SQLDB=mydrivingDB openhack/data-load:v1
+
+Step 6.) Created POI
+docker run -d -p 8080:80 --name poi --network azdevops_default -e "SQL_USER=SA" -e "SQL_PASSWORD=P@ssw0rd" -e "SQL_SERVER=sql1" -e "SQLDBN=mydrivingDB" -e "ASPNETCORE_ENVIRONMENT=Local" tripinsights/poi:1.0
