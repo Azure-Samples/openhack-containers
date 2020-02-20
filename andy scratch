@@ -1,0 +1,59 @@
+---------------------------------------------------------------------------------------
+To get things running locally
+---------------------------------------------------------------------------------------
+ENTER THESE IN ORDER:
+
+------BUILD the SQL Server------ (https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-2017&pivots=cs1-bash)
+docker run --network azdevops_default -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd" -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+
+------EXEC INTO THE SQL CONTAINER-------
+docker exec -it sql1 "bash"
+
+------CONNECT TO THE DATABASE------
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "P@ssw0rd"
+
+
+------CREATE DATABASE AND SET IT------  (https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker?view=sql-server-ver15)
+create database mydrivingDB
+go
+select name from sys.databases
+go
+use mydrivingDB
+select name from sys.tables
+go
+
+-------LOAD DATABASE WITH DATA-------
+docker run --name dataload --network azdevops_default -e SQLFQDN=sql1 -e SQLUSER=SA -e SQLPASS=P@ssw0rd -e SQLDB=mydrivingDB openhack/data-load:v1
+
+-------MAP port 8080 to 80---------
+docker run -d -p 8080:80 --name poi --network azdevops_default -e "SQL_USER=SA" -e "SQL_PASSWORD=P@ssw0rd" -e "SQL_SERVER=sql1" -e "SQLDBN=mydrivingDB" -e "ASPNETCORE_ENVIRONMENT=Local" tripinsights/poi:1.0
+
+
+-------CURL TO TEST------
+curl -i -X GET 'http://localhost:8080/api/poi' 
+
+curl -i -X GET 'http://localhost:8080/api/poi/healthcheck' 
+
+====================================END==================================================
+
+
+
+
+export oh_sqlservername=sqlserverzlh9820.database.windows.net
+export oh_sqluid=sqladminzLh9820
+export oh_sqlpwd=xF0ks4Du4
+docker run --network azdevops_default -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$oh_sqlpwd" -e "SQLFQDN=$oh_sqlservername" -e "SQLUSER=$oh_sqluid" -e "SQLPASS=$oh_sqlpwd" -e "SQLDB=mydrivingDB" --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+
+docker run --network <networkname> -e SQLFQDN=<servername> -e SQLUSER=<db-user> -e SQLPASS=<password> -e SQLDB=mydrivingDB openhack/data-load:v1
+
+SQL_PASSWORD="changeme" \
+    SQL_SERVER="changeme.database.windows.net" \
+    SQL_DBNAME="mydrivingDB" \
+    WEB_PORT=80 \
+    WEB_SERVER_BASE_URI="http://0.0.0.0" \
+    ASPNETCORE_ENVIRONMENT="Development" \
+    CONFIG_FILES_PATH="/secrets"
+
+
+
+docker run -d -p 8080:80 --name poi --network azdevops_default -e "SQL_USER=sqladminzLh9820" -e "SQL_PASSWORD=xF0ks4Du4" -e "SQL_SERVER=sql1" -e "SQLDBN=mydrivingDB" -e "ASPNETCORE_ENVIRONMENT=local" tripinsights/poi:1.0
