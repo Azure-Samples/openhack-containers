@@ -1,0 +1,6 @@
+# escape=`
+FROM mcr.microsoft.com/mssql/server:2017-latest
+
+
+LABEL maintainer="Jonathan Escobedo <jescobedo@sorenson.com" `
+    description="This Dockerfile will download SQL Server 2017 Linux."

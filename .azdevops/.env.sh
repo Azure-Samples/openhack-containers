@@ -1,0 +1,6 @@
+export OH_SQL_USER=sa
+export OH_SQL_PASSWORD=KhH7Xql5
+export OH_SQL_SERVER=sql1
+export OH_SQL_PORT=1433
+export OH_SQL_DBNAME=mydrivingDB
+export OH_PROJECT_NAME=azdevops_default
