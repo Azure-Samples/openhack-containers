@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi
+spec:
+  selector:
+      matchLabels:
+        app: poi
+  replicas: 1
+  template:
+      metadata:
+        labels:
+            app: poi
+      spec:
+        containers:
+        - name: poi
+          image: registryzlh9820.azurecr.io/tripinsights/poi:1.0
+          env:
+          - name: SQL_PASSWORD
+            value: "xF0ks4Du4"
+          - name: SQL_SERVER
+            value:  "sqlserverzlh9820.database.windows.net"
+          - name: SQL_USER
+            value: "sqladminzLh9820"
+          - name: SQL_DB
+            value: "mydrivingDB"
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Production"  
+          ports:
+          - containerPort: 80
+          
