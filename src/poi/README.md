@@ -73,6 +73,8 @@ Powershell
 docker build --no-cache --build-arg IMAGE_VERSION="1.0" --build-arg IMAGE_CREATE_DATE="$(Get-Date((Get-Date).ToUniversalTime()) -UFormat '%Y-%m-%dT%H:%M:%SZ')" --build-arg IMAGE_SOURCE_REVISION="$(git rev-parse HEAD)" -f Dockerfile -t "tripinsights/poi:1.0" .
 ```
 
+The docker build will run an integration stage (`FROM build-env AS integration-test`) where the application is run on the `WEB_INTEGRATION_PORT` port specified in the dockerfile. This should not conflict with anything on most machines. If you have a conflict with something running on your local machine, set the environment variable `WEB_INTEGRATION_PORT` to another unused port for the integration test.
+
 To run the image
 
 ```bash

@@ -26,10 +26,12 @@ namespace IntegrationTests
         [InlineData("/api/poi/")]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
+            var port = Environment.GetEnvironmentVariable("WEB_INTEGRATION_PORT");
+
             // Arrange
             var client = _factory.CreateClient(
                 new WebApplicationFactoryClientOptions{
-                    BaseAddress = new Uri("http://localhost:8080")
+                    BaseAddress = new Uri("http://localhost:" + port)
                 }
             );
 

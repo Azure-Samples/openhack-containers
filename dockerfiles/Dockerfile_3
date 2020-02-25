@@ -24,6 +24,7 @@ RUN dotnet test
 
 FROM build-env AS integration-test
 WORKDIR /app/tests/IntegrationTests
+ENV WEB_INTEGRATION_PORT 8912
 RUN dotnet test
 
 FROM build-env AS publish
