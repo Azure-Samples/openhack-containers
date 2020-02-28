@@ -20,6 +20,10 @@ namespace IntegrationTests
             .AddEnvironmentVariables()
             .Build();
 
+            var port = Environment.GetEnvironmentVariable("WEB_INTEGRATION_PORT") ?? "8123";
+            Environment.SetEnvironmentVariable("WEB_INTEGRATION_PORT", port);
+            Console.WriteLine("Spinning up site for testing on port " + port);
+
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseConfiguration(configuration)
@@ -31,7 +35,7 @@ namespace IntegrationTests
                     logging.AddDebug();
                 })
                 .UseStartup<IntegrationTests.Startup>()
-                .UseUrls("http://localhost:8080");
+                .UseUrls("http://localhost:" + port);
 
             return host;
         }
