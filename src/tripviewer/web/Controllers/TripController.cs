@@ -48,7 +48,7 @@ namespace TripViewer.Controllers
             TripStore t = new TripStore(teamendpoint);
             List<Trip> trips = t.GetItemsAsync().Result;
 
-            if (trips.Count == 0){
+            if (trips == null || trips.Count == 0){
                 return new List<TripPoint>();
             } 
             
