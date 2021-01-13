@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofile-deployment
+  labels:
+    app: userprofile-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userprofile
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      containers:
+      - name: userprofile
+        image: registryjnk8550.azurecr.io/tripinsights/userprofile:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: WEB_PORT
+          value: "80"
+        - name: WEB_SERVER_BASE_URI
+          value: "http://0.0.0.0"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        envFrom:
+        - secretRef:
+            name: sql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: userprofile-service
+  name: userprofile-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: userprofile
+status:
+  loadBalancer: {}

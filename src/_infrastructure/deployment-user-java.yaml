@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-java-deployment
+  labels:
+    app: user-java-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-java
+  template:
+    metadata:
+      labels:
+        app: user-java
+    spec:
+      containers:
+      - name: user-java
+        image: registryjnk8550.azurecr.io/tripinsights/user-java:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORT
+          value: "80"
+        envFrom:
+        - secretRef:
+            name: sql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: user-java-service
+  name: user-java-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: user-java
+status:
+  loadBalancer: {}
