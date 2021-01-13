@@ -1,0 +1,59 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: tripinsights-ingress
+  namespace: tripinsights-api
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: poi-service
+          servicePort: 80
+        path: /api/poi
+  - http:
+      paths:
+      - backend:
+          serviceName: poi-service
+          servicePort: 80
+        path: /api/poi/healthcheck
+  - http:
+      paths:
+      - backend:
+          serviceName: trips-service
+          servicePort: 80
+        path: /api/trips
+  - http:
+      paths:
+      - backend:
+          serviceName: trips-service
+          servicePort: 80
+        path: /api/trips/healthcheck
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: tripinsights-ingress
+  namespace: tripinsights-web
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: tripviewer-service
+          servicePort: 80
+        path: /Trip
+      - backend:
+          serviceName: tripviewer-service
+          servicePort: 80
+        path: /
+      - backend:
+          serviceName: tripviewer-service
+          servicePort: 80
+        path: /UserProfile

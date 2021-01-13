@@ -1,0 +1,43 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+kind: SecretProviderClass
+metadata:
+  name: azure-keyvault
+  namespace: tripinsights-api
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"                   # [REQUIRED] Set to "true" if using managed identities
+    useVMManagedIdentity: "false"             # [OPTIONAL] if not provided, will default to "false"
+    userAssignedIdentityID: "4284597e-d465-4ba5-adb1-5775610fb47a"       
+    # [REQUIRED]  If you're using a user-assigned identity as the VM's managed identity, specify the identity's client id. 
+    # If the value is empty, it defaults to use the system-assigned identity on the VM
+                                                         
+    keyvaultName: "team5-keyvault"          # [REQUIRED] the name of the key vault
+                                              #     az keyvault show --name contosoKeyVault5
+                                              #     the preceding command will display the key vault metadata, which includes the subscription ID, resource group name, key vault 
+    cloudName: ""                                # [OPTIONAL for Azure] if not provided, Azure environment will default to AzurePublicCloud
+    objects:  |
+      array:
+        - |
+          objectName: SQL-DBNAME                 
+          objectType: secret                  
+          objectVersion: ""                  
+          objectAlias: SQL_DBNAME
+        - |
+          objectName: SQL-PASSWORD
+          objectType: secret
+          objectVersion: ""
+          objectAlias: SQL_PASSWORD
+        - |
+          objectName: SQL-SERVER
+          objectType: secret
+          objectVersion: ""
+          objectAlias: SQL_SERVER
+        - |
+          objectName: SQL-USER
+          objectType: secret
+          objectVersion: ""
+          objectAlias: SQL_USER
+    resourceGroup: "teamResources"     # [REQUIRED] the resource group name of the key vault
+    subscriptionId: "65a30064-b7c1-4424-918b-ce5b991b6154"          # [REQUIRED] the subscription ID of the key vault
+    tenantId: "c59323e4-2917-4a2a-882e-7b27b8c3b1e6"                      # [REQUIRED] the tenant ID of the key vault

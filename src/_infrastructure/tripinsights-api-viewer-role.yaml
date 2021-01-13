@@ -1,0 +1,85 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tripinsights-api-viewer
+  namespace: tripinsights-api
+rules:
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - ''
+      - extensions
+      - apps
+    resources:
+      - '*'
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tripinsights-api-editor
+  namespace: tripinsights-api
+rules:
+  - verbs:
+      - create
+      - delete
+      - deletecollection
+      - patch
+      - update
+    apiGroups:
+      - ''
+      - extensions
+      - apps
+    resources:
+      - '*'
+  - verbs:
+      - create
+      - delete
+      - deletecollection
+      - patch
+      - update
+    apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tripinsights-web-editor
+  namespace: tripinsights-web
+rules:
+  - verbs:
+      - create
+      - delete
+      - deletecollection
+      - patch
+      - update
+    apiGroups:
+      - ''
+      - extensions
+      - apps
+    resources:
+      - '*'
+  - verbs:
+      - create
+      - delete
+      - deletecollection
+      - patch
+      - update
+    apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs

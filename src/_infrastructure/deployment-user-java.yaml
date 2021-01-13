@@ -22,9 +22,17 @@ spec:
         env:
         - name: PORT
           value: "80"
-        envFrom:
-        - secretRef:
-            name: sql
+        volumeMounts:
+        - name: secrets
+          mountPath: /secrets
+          readOnly: true
+      volumes:
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-keyvault"
 ---
 apiVersion: v1
 kind: Service
