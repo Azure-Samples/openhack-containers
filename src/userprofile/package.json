@@ -17,7 +17,7 @@
         "express-prom-bundle": "^5.1.5",
         "express4-tedious": "^0.3.0",
         "extend": "^3.0.2",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.21",
         "morgan": "^1.9.1",
         "prom-client": "^11.5.3",
         "swagger-ui-express": "^4.0.6",
