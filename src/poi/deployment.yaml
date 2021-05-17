@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: poi
+  name: poi
+  namespace: openhack
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poi
+  template:
+    metadata:
+      labels:
+        app: poi
+    spec:
+      containers:
+        - image: registryrfq6839.azurecr.io/poi:v1.0
+          imagePullPolicy: Always
+          name: poi
+          ports:
+            - containerPort: 80
+          env:
+            - name: SQL_SERVER
+              value: "sqlserverrfq6839.database.windows.net"
+            - name: SQL_DBNAME
+              value: "mydrivingDB"
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: sqlauth
+                  key: username
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sqlauth
+                  key: password
