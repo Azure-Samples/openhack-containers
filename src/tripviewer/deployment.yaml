@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user-java
+  name: user-java
+  namespace: openhack
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-java
+  template:
+    metadata:
+      labels:
+        app: user-java
+    spec:
+      containers:
+      - image: registryrfq6839.azurecr.io/user-java:v1.0
+        imagePullPolicy: Always
+        name: user-java
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_SERVER
+          value: "sqlserverrfq6839.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sqlauth
+              key: username
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sqlauth
+              key: password
