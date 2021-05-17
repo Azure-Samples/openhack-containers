@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: user-java
-  name: user-java
+    app: trips
+  name: trips
   namespace: openhack
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: user-java
+      app: trips
   template:
     metadata:
       labels:
-        app: user-java
+        app: trips
     spec:
       containers:
-      - image: registryrfq6839.azurecr.io/user-java:v1.0
+      - image: registryrfq6839.azurecr.io/trips:v1.0
         imagePullPolicy: Always
-        name: user-java
+        name: trips
         ports:
         - containerPort: 80
         env:
