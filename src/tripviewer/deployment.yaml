@@ -23,9 +23,9 @@ spec:
         - containerPort: 80
         env:
         - name: TRIPS_API_ENDPOINT
-          value: "trips.openhack"
+          value: "http://trips.openhack"
         - name: USERPROFILE_API_ENDPOINT
-          value: "userprofile.openhack"
+          value: "http://userprofile.openhack"
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
 
