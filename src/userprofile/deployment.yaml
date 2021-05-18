@@ -23,25 +23,8 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: secrets-store-inline
-          mountPath: "/mnt/secrets-store"
+          mountPath: "/secrets"
           readOnly: true
-        env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: SQL-USER
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: SQL-PASSWORD
-        - name: SQL_SERVER
-          valueFrom:
-            secretKeyRef:
-              name: SQL-FQDN
-        - name: SQL_DBNAME
-          valueFrom:
-            secretKeyRef:
-              name: SQL-DBNAME
       volumes:
         - name: secrets-store-inline
           csi:
