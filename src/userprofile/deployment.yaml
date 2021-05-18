@@ -4,7 +4,7 @@ metadata:
   labels:
     app: userprofile
   name: userprofile
-  namespace: openhack
+  namespace: api
 spec:
   replicas: 2
   selector:
