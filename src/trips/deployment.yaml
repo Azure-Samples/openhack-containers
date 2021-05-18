@@ -16,7 +16,7 @@ spec:
         app: trips
     spec:
       containers:
-      - image: registryrfq6839.azurecr.io/trips:v1.0
+      - image: registryrfq6839.azurecr.io/trips:chris
         imagePullPolicy: Always
         name: trips
         ports:
@@ -36,3 +36,7 @@ spec:
             secretKeyRef:
               name: sqlauth
               key: password
+        - name: OPENAPI_DOCS_URI
+          value: "http://localhost"
+        - name: DEBUG_LOGGING
+          value: "true"
