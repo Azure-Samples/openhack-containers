@@ -27,10 +27,22 @@ spec:
           readOnly: true
       volumes:
         - name: secrets-store-inline
+          secret: 
+            secretName: "secrets-store-inline"
+            items:
+            - key: "SQL-DBNAME"
+              path: "SQL_DBNAME"
+            - key: "SQL-FQDN"
+              path: "SQL_SERVER"
+            - key: "SQL-PASSWORD"
+              path: "SQL_PASSWORD"
+            - key: "SQL-USER"
+              path: "SQL_USER "
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
               secretProviderClass: "azure-kvname"
-        
 
+            
+     
