@@ -19,7 +19,6 @@ spec:
       - image: registryrfq6839.azurecr.io/tripviewer:v1.0
         imagePullPolicy: Always
         name: tripviewer
-        image: tripviewer:v1.0
         ports:
         - containerPort: 80
         env:
