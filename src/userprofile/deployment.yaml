@@ -22,17 +22,30 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: SQL_SERVER
-          value: "sqlserverrfq6839.database.windows.net"
-        - name: SQL_DBNAME
-          value: "mydrivingDB"
         - name: SQL_USER
           valueFrom:
             secretKeyRef:
-              name: sqlauth
-              key: username
+              name: SQL-USER
         - name: SQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: sqlauth
-              key: password
+              name: SQL-PASSWORD
+        - name: SQL_SERVER
+          valueFrom:
+            secretKeyRef:
+              name: SQL-FQDN
+        - name: SQL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: SQL-DBNAME
+   volumeMounts:
+    - name: secrets-store-inline
+      mountPath: "/mnt/secrets-store"
+      readOnly: true
+  volumes:
+    - name: secrets-store-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "azure-kvname"
