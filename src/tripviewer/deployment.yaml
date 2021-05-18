@@ -1,38 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: tripviewer-deployment
   labels:
-    app: user-java
-  name: user-java
+    app: tripviewer
   namespace: openhack
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: user-java
+      app: tripviewer
   template:
     metadata:
       labels:
-        app: user-java
+        app: tripviewer
     spec:
       containers:
-      - image: registryrfq6839.azurecr.io/user-java:v1.0
+      - image: registryrfq6839.azurecr.io/tripviewer:v1.0
         imagePullPolicy: Always
-        name: user-java
+        name: tripviewer
+        image: tripviewer:v1.0
         ports:
         - containerPort: 80
         env:
-        - name: SQL_SERVER
-          value: "sqlserverrfq6839.database.windows.net"
-        - name: SQL_DBNAME
-          value: "mydrivingDB"
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: sqlauth
-              key: username
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sqlauth
-              key: password
+        - name: TRIPS_API_ENDPOINT
+          value: "trips.openhack"
+        - name: USERPROFILE_API_ENDPOINT
+          value: "userprofile.openhack"
