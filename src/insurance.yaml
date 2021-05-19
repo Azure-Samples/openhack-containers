@@ -21,7 +21,7 @@ spec:
             memory: "512Mi"
             cpu: "100m"
           limits:
-            memory: "3Gi"
+            memory: "2.8Gi"
             cpu: "1800m"
         imagePullPolicy: Always
         name: insurance
