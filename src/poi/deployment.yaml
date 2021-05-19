@@ -21,10 +21,10 @@ spec:
           name: poi
           ports:
             - containerPort: 80
-                  volumeMounts:
-        - name: secrets-store-inline
-          mountPath: "/secrets"
-          readOnly: true
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/secrets"
+              readOnly: true
       volumes:
         - name: secrets-store-inline
           csi:
