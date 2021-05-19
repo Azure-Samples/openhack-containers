@@ -5,7 +5,7 @@ metadata:
   labels:
     deploy: insurance
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: insurance
@@ -21,7 +21,7 @@ spec:
             memory: "512Mi"
             cpu: "100m"
           limits:
-            memory: "1024Mi"
+            memory: "3Gi"
             cpu: "200m"
         imagePullPolicy: Always
         name: insurance
