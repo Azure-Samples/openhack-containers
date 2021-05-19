@@ -22,7 +22,7 @@ spec:
             cpu: "100m"
           limits:
             memory: "3Gi"
-            cpu: "200m"
+            cpu: "1"
         imagePullPolicy: Always
         name: insurance
         ports:
