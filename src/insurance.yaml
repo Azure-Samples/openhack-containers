@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insurance-deployment
+  labels:
+    deploy: insurance
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: insurance
+  template:
+    metadata:
+      labels:
+        app: insurance
+    spec:
+      containers:
+      - image: "registryrfq6839.azurecr.io/insurance:1.0"
+        imagePullPolicy: Always
+        name: insurance
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: insurance
+spec:
+  type: ClusterIP
+  selector:
+    app: insurance
+  ports:
+  - protocol: TCP
+    name: insurance-http
+    port: 80
+    targetPort: 8081
