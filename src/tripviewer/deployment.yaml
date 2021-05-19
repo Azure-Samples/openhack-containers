@@ -4,7 +4,7 @@ metadata:
   name: tripviewer-deployment
   labels:
     app: tripviewer
-  namespace: openhack
+  namespace: web
 spec:
   replicas: 2
   selector:
@@ -23,9 +23,9 @@ spec:
         - containerPort: 80
         env:
         - name: TRIPS_API_ENDPOINT
-          value: "http://trips.openhack"
+          value: "http://trips.api"
         - name: USERPROFILE_API_ENDPOINT
-          value: "http://userprofile.openhack"
+          value: "http://userprofile.api"
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
 
