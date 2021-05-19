@@ -4,7 +4,7 @@ metadata:
   labels:
     app: user-java
   name: user-java
-  namespace: openhack
+  namespace: api
 spec:
   replicas: 2
   selector:
@@ -16,23 +16,19 @@ spec:
         app: user-java
     spec:
       containers:
-      - image: registryrfq6839.azurecr.io/user-java:v1.0
-        imagePullPolicy: Always
-        name: user-java
-        ports:
-        - containerPort: 80
-        env:
-        - name: SQL_SERVER
-          value: "sqlserverrfq6839.database.windows.net"
-        - name: SQL_DBNAME
-          value: "mydrivingDB"
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: sqlauth
-              key: username
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sqlauth
-              key: password
+        - image: registryrfq6839.azurecr.io/user-java:v1.0
+          imagePullPolicy: Always
+          name: user-java
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/secrets"
+              readOnly: true
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kvname"
