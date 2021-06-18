@@ -1,4 +1,8 @@
-# Containers 2.0 Openhack
+# :warning: Archived - Containers 2.0 Openhack
+
+## Archived
+
+> :warning: This repo has been moved to [https://github.com/Microsoft-OpenHack/containers_artifacts](https://github.com/Microsoft-OpenHack/containers_artifacts).
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
