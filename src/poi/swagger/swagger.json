@@ -1,0 +1,183 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "v1",
+      "title": "Trip Insights Points Of Interest (POI) API",
+      "description": "API for the trips in the Trip Insights app. https://github.com/Azure-Samples/openhack-containers"
+    },
+    "paths": {
+      "/api/poi": {
+        "get": {
+          "tags": [
+            "POI"
+          ],
+          "operationId": "ApiPoiGet",
+          "consumes": [],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/POI"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "POI"
+          ],
+          "operationId": "ApiPoiPost",
+          "consumes": [
+            "application/json-patch+json",
+            "application/json",
+            "text/json",
+            "application/*+json"
+          ],
+          "produces": [],
+          "parameters": [
+            {
+              "name": "poi",
+              "in": "body",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/POI"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/poi/healthcheck": {
+        "get": {
+          "tags": [
+            "POI"
+          ],
+          "operationId": "ApiPoiHealthcheckGet",
+          "consumes": [],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Healthcheck"
+              }
+            }
+          }
+        }
+      },
+      "/api/poi/{ID}": {
+        "get": {
+          "tags": [
+            "POI"
+          ],
+          "operationId": "ApiPoiByIDGet",
+          "consumes": [],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "ID",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/POI"
+              }
+            }
+          }
+        }
+      },
+      "/api/poi/trip/{tripID}": {
+        "get": {
+          "tags": [
+            "POI"
+          ],
+          "operationId": "ApiPoiTripByTripIDGet",
+          "consumes": [],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "tripID",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/POI"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "POI": {
+        "type": "object",
+        "properties": {
+          "tripId": {
+            "type": "string"
+          },
+          "latitude": {
+            "format": "double",
+            "type": "number"
+          },
+          "longitude": {
+            "format": "double",
+            "type": "number"
+          },
+          "poiType": {
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ],
+            "type": "integer"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Healthcheck": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,292 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API for the user profile in the Trip Insights app. https://github.com/Azure-Samples/openhack-containers",
+        "version": "0.1.0",
+        "title": "Trip Insights User Profile (Java) API",
+        "contact": {},
+        "license": {
+            "url": "http://unlicense.org"
+        }
+    },
+    "host": "userjava.api",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "healthcheck-api-controller",
+            "description": "the healthcheck API"
+        },
+        {
+            "name": "user-api-controller",
+            "description": "the user API"
+        }
+    ],
+    "paths": {
+        "/user-java/healthcheck": {
+            "get": {
+                "tags": [
+                    "healthcheck-api-controller"
+                ],
+                "summary": "healthcheckUserGet",
+                "description": "Returns healthcheck for systems looking to ensure API is up and operational",
+                "operationId": "healthcheckUserGet",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Service is healthy",
+                        "schema": {
+                            "$ref": "#/definitions/Healthcheck"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/user-java/{userID}": {
+            "post": {
+                "tags": [
+                    "user-api-controller"
+                ],
+                "summary": "userPOST",
+                "description": "Declares and creates a new profile",
+                "operationId": "userPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "userID",
+                        "in": "path",
+                        "description": "User's unique ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "profile",
+                        "description": "Details of the profile",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An error occurred",
+                        "schema": {
+                            "$ref": "#/definitions/InlineResponseDefault"
+                        }
+                    },
+                    "201": {
+                        "description": "Creation successful",
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "user-api-controller"
+                ],
+                "summary": "updateUser",
+                "description": "Update User",
+                "operationId": "updateUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "userID",
+                        "in": "path",
+                        "description": "User's unique ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "profile",
+                        "description": "Details of the profile",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Updated",
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "User profile not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ErrorResponseDefault": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "Error Message"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Error code (if available)"
+                }
+            }
+        },
+        "Healthcheck": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "InlineResponseDefault": {
+            "type": "object",
+            "required": [
+                "message",
+                "status"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "Profile": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": false,
+                    "description": "Whether the user has been deleted or not."
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "fuelConsumption": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "User's amount of fuel consumed"
+                },
+                "hardAccelerations": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User's total number of hard accelerations"
+                },
+                "hardStops": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User's total number of hard stops"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "User's unique identity"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "maxSpeed": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "User's maximum speed"
+                },
+                "profilePictureUri": {
+                    "type": "string",
+                    "description": "User's Profile picture"
+                },
+                "ranking": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User's ranking"
+                },
+                "rating": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User's rating"
+                },
+                "totalDistance": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "User's total distance traveled"
+                },
+                "totalTime": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User's total driving time"
+                },
+                "totalTrips": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User's total number of trips"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "User's identity"
+                }
+            }
+        }
+    }
+}
