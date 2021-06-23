@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofile-deployment
+  labels:
+    app: userprofile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userprofile
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      containers:
+      - name: userprofile
+        image: registryanm5076.azurecr.io/userprofile:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_USER
+          value: "sqladminaNm5076"
+        - name: SQL_PASSWORD
+          value: "tP4rd6Zs3"
+        - name: SQL_SERVER
+          value: "sqlserveranm5076.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userprofile-service
+spec:
+  selector:
+    app: userprofile
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

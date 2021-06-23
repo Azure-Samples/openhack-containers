@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-java-deployment
+  labels:
+    app: user-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-java
+  template:
+    metadata:
+      labels:
+        app: user-java
+    spec:
+      containers:
+      - name: poi
+        image: registryanm5076.azurecr.io/user-java:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_USER
+          value: "sqladminaNm5076"
+        - name: SQL_PASSWORD
+          value: "tP4rd6Zs3"
+        - name: SQL_SERVER
+          value: "sqlserveranm5076.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-java-service
+spec:
+  selector:
+    app: user-java
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
