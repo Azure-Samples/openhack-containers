@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: userprofile
+  name: userprofile
+  namespace: api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: userprofile
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      containers:
+      - image: registryrfq6839.azurecr.io/userprofile:v1.0
+        imagePullPolicy: Always
+        name: userprofile
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/secrets"
+          readOnly: true
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kvname"
+
+            
+     
