@@ -1,0 +1,30 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ubuntuOSVersion": {
+      "value": "18.04-LTS"
+    },
+    "resourcePrefix": {
+      "value": "openhack"
+    },
+    "adminUsername": {
+      "value": "openhack"
+    },
+    "vnetPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "subnetName": {
+      "value": "Default"
+    },
+    "subnetPrefix": {
+      "value": "10.0.0.0/24"
+    },
+    "scriptUri" : {
+      "value": "https://raw.githubusercontent.com/Azure-Samples/openhack-containers/master/vms/linux/config.sh"
+    },
+    "scriptName" : {
+      "value": "config.sh"
+    }
+  }
+}
